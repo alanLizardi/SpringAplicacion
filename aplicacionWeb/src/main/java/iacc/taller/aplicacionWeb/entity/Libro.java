@@ -18,7 +18,7 @@ public class Libro implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int ISBN;
+	private Long ISBN;
 	@Column
 	private String nombreLibro;
 	@Column
@@ -30,11 +30,11 @@ public class Libro implements Serializable {
 	@Column
 	private int idCategoria;
 
-	public int getISBN() {
+	public Long getISBN() {
 		return ISBN;
 	}
 
-	public void setISBN(int iSBN) {
+	public void setISBN(Long iSBN) {
 		ISBN = iSBN;
 	}
 
@@ -82,7 +82,7 @@ public class Libro implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ISBN;
+		result = prime * result + ((ISBN == null) ? 0 : ISBN.hashCode());
 		result = prime * result + ((autor == null) ? 0 : autor.hashCode());
 		result = prime * result + ((descripcion == null) ? 0 : descripcion.hashCode());
 		result = prime * result + ((editorial == null) ? 0 : editorial.hashCode());
@@ -100,7 +100,10 @@ public class Libro implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Libro other = (Libro) obj;
-		if (ISBN != other.ISBN)
+		if (ISBN == null) {
+			if (other.ISBN != null)
+				return false;
+		} else if (!ISBN.equals(other.ISBN))
 			return false;
 		if (autor == null) {
 			if (other.autor != null)
