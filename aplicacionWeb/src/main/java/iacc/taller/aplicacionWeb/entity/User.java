@@ -12,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.JoinColumn;
@@ -29,21 +32,28 @@ public class User implements Serializable {
 	private Long id;
 
 	@Column
+	@NotBlank
 	private String firstName;
 
 	@Column
+	@NotBlank
 	private String lastName;
 
 	@Column(unique = true)
+	@NotBlank
 	private String email;
 
 	@Column(unique = true)
+	@NotBlank
 	private String username;
 
 	@Column
+	@Size(min=4, max=8, message="Debe cumplir con el largo perimtido") 
 	private String password;
+	@NotBlank
 
 	@Transient
+	@NotBlank
 	private String confirmPassword;
 
 	@ManyToMany(fetch = FetchType.LAZY)
